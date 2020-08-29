@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:text="Время: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/edit_startTime">
+    </TextView>
+
+    <EditText
+        android:id="@+id/edit_startTime"
+        android:layout_width="58dp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/tv_time">
+    </EditText>
+
+    <TextView
+        android:id="@+id/tv_"
+        android:text=" - "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/edit_startTime"
+        android:layout_alignBaseline="@+id/edit_startTime">
+    </TextView>
+
+    <EditText
+        android:id="@+id/edit_endTime"
+        android:layout_width="58dp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/tv_">
+    </EditText>
+
+    <LinearLayout
+        android:id="@+id/linear_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_startTime"
+        android:layout_alignLeft="@+id/tv_time"
+        android:layout_alignRight="@+id/edit_endTime"
+        android:orientation="horizontal"
+        android:divider="@drawable/separator"
+        android:dividerPadding="3dp"
+        android:showDividers="middle">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="3">
+
+            <TextView
+                android:text="Направление"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <EditText
+                android:id="@+id/edit_specialty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </EditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <TextView
+                android:text="Курс"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/edit_year_specialty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </EditText>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
