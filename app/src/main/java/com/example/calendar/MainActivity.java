@@ -8,18 +8,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Set;
+import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,18 +26,15 @@ public class MainActivity extends AppCompatActivity {
 
     private NormalDaysDB normalDaysDB;
     private CorrectedDayDB correctedDayDB;
-    SharedPreferences list_university;
+
+    private final String UNIVERSITY_PREFERENCE_KEY = "UniversityList";
+    private SharedPreferences preferences;
+    private ArrayList<String> universities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //list_university = getSharedPreferences("ListUniversity", MODE_PRIVATE);
-        //setUniversity("ИРГАУ");
-        //setUniversity("ИГУ");
-        //deleteUniversity("ИГУ");
-        //Log.d("AAAA", "" + getUniversity().length);
 
         //normalDaysDB = new NormalDaysDB(this);
         //normalDaysDB.insert(new OneLesson("ИГУ", 1, 1, "Monday","8:00", "9:30", "Энергетики", 1));
@@ -52,10 +48,12 @@ public class MainActivity extends AppCompatActivity {
         //correctedDayDB.delete("data_lesson = ?", new String[] {"2020-09-01"});
         //Log.d("AAAA", "" + correctedDayDB.getAll());
 
-
-
+        preferences = getSharedPreferences("MainPreferences", MODE_PRIVATE);
+        universities = new ArrayList<>(Objects.requireNonNull(
+                preferences.getStringSet(UNIVERSITY_PREFERENCE_KEY, new HashSet<String>())));
         ListView university = findViewById(R.id.list_university);
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, universities);
         university.setAdapter(adapter);
         university.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -65,6 +63,25 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        university.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final String university = adapterView.getItemAtPosition(i).toString();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                Dialog dialog = builder.setTitle("Удалить институт  «" + university + "»?")
+                        .setNegativeButton("Отмена", null)
+                        .setPositiveButton("Удалить", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                adapter.remove(university);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }).create();
+                dialog.show();
+                return true;
+            }
+        });
     }
 
     public void exit(View view) {
@@ -72,42 +89,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void add(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final EditText entry = new EditText(this);
         entry.setHint("Введите название института");
         entry.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        final TextView text = new TextView(this);
+
+        TextView text = new TextView(this);
         text.setText("Добавление института");
         text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        Dialog dialog = builder.setCustomTitle(text)
-                .setView(entry)
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        Dialog dialog = builder.setCustomTitle(text).setView(entry)
                 .setNegativeButton("Отмена", null)
                 .setPositiveButton("Готово", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        adapter.add(entry.getText().toString());
-                        adapter.notifyDataSetChanged();
+                        String university = entry.getText().toString();
+                        if (!universities.contains(university)) {
+                            adapter.add(university);
+                            adapter.notifyDataSetChanged();
+                        } else
+                            Toast.makeText(getApplicationContext(),
+                                    "Этот институт уже в списке", Toast.LENGTH_SHORT).show();
                     }
                 }).create();
         dialog.show();
     }
 
-    public void setUniversity(String University){
-        SharedPreferences.Editor prefEditor = list_university.edit();
-        prefEditor.putString(University, "");
-        prefEditor.apply();
-    }
+    @Override
+    protected void onDestroy() {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putStringSet(UNIVERSITY_PREFERENCE_KEY, new HashSet<String>(universities));
+        editor.apply();
 
-    public void deleteUniversity(String University){
-        SharedPreferences.Editor prefEditor = list_university.edit();
-        prefEditor.remove(University);
-        prefEditor.apply();
-    }
-
-    public String[] getUniversity(){
-       Map<String,?> names = list_university.getAll();
-       Set<String> keys = names.keySet();
-       String[] strings = keys.toArray(new String[keys.size()]);
-       return strings;
+        super.onDestroy();
     }
 }
