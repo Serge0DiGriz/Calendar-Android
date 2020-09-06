@@ -10,20 +10,20 @@ import androidx.annotation.Nullable;
 
 import java.util.LinkedList;
 
-public class NormalDaysDB extends SQLiteOpenHelper {
+public class NormalDayDB extends SQLiteOpenHelper {
 
     private Context context;
     private SQLiteDatabase db;
 
-    public NormalDaysDB(@Nullable Context context) {
-        super(context, "NormalDaysDB", null, 1);
+    public NormalDayDB(@Nullable Context context) {
+        super(context, "Normal_DaysDB", null, 1);
         db = getWritableDatabase();
         this.context = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS NormalDaysDB(\n" +
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS Normal_DaysDB(\n" +
                 "  university TEXT,\n" +
                 "  semester INTEGER,\n" +
                 "  number_week INTEGER,\n" +
@@ -49,7 +49,7 @@ public class NormalDaysDB extends SQLiteOpenHelper {
         cv.put("end_time", oneLesson.getEnd_time());
         cv.put("specialty", oneLesson.getSpecialty());
         cv.put("year_specialty", oneLesson.getYear_specialty());
-        db.insert("NormalDaysDB", null, cv);
+        db.insert("Normal_DaysDB", null, cv);
     }
 
     public void update(OneLesson oneLesson, String whereClause, String[] whereArgs) {
@@ -62,16 +62,16 @@ public class NormalDaysDB extends SQLiteOpenHelper {
         cv.put("end_time", oneLesson.getEnd_time());
         cv.put("specialty", oneLesson.getSpecialty());
         cv.put("year_specialty", oneLesson.getYear_specialty());
-        db.update("NormalDaysDB", cv, whereClause, whereArgs);
+        db.update("Normal_DaysDB", cv, whereClause, whereArgs);
     }
 
     public void delete(String whereClause, String[] whereArgs) {
-        db.delete("NormalDaysDB", whereClause, whereArgs);
+        db.delete("Normal_DaysDB", whereClause, whereArgs);
     }
 
-    public LinkedList<OneLesson> getAll() {
+    public LinkedList<OneLesson> getAll(){
         LinkedList<OneLesson> lessons = new LinkedList<>();
-        Cursor cursor = db.query("NormalDaysDB", null, null, null, null, null, null);
+        Cursor cursor = db.query("Normal_DaysDB", null, null, null, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             OneLesson oneLesson = new OneLesson();
@@ -88,10 +88,9 @@ public class NormalDaysDB extends SQLiteOpenHelper {
         }
         return lessons;
     }
-
     public LinkedList<OneLesson> getCustom(String whereClause, String[] whereArgs) {
         LinkedList<OneLesson> lessons = new LinkedList<>();
-        Cursor cursor = db.query("NormalDaysDB", null, whereClause, whereArgs, null, null, null);
+        Cursor cursor = db.query("Normal_DaysDB", null, whereClause, whereArgs, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             OneLesson oneLesson = new OneLesson();
@@ -109,3 +108,5 @@ public class NormalDaysDB extends SQLiteOpenHelper {
         return lessons;
     }
 }
+
+

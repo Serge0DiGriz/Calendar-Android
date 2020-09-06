@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class WeekActivity extends AppCompatActivity {
     public static ArrayList<DayAdapter> dayAdapters = new ArrayList<>();
@@ -23,12 +23,13 @@ public class WeekActivity extends AppCompatActivity {
         Toast.makeText(this, universityName, Toast.LENGTH_SHORT).show();
 
         for (int i=0; i<6; i++) {
-            ArrayList<Lesson> list = new ArrayList<>();
-            list.add(new Lesson("", "", "", ""));
-            dayAdapters.add(new DayAdapter(this, R.layout.lesson, list));
+            ArrayList<LessonDayAdapter> list = new ArrayList<>();
+            list.add(new LessonDayAdapter("", "", "", ""));
+            dayAdapters.add(new DayAdapter(this, R.layout.add_lesson, list));
         }
 
         ViewPager pager = findViewById(R.id.weekPager);
         pager.setAdapter(new WeekPagerAdapter(getSupportFragmentManager(), this));
+
     }
 }

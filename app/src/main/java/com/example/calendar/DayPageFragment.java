@@ -48,7 +48,7 @@ public class DayPageFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapter.add(new Lesson("", "", "", ""));
+                adapter.add(new LessonDayAdapter("", "", "", ""));
                 adapter.notifyDataSetChanged();
             }
         });

@@ -30,4 +30,5 @@ public class WeekPagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         return week[position];
     }
+
 }

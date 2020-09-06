@@ -25,7 +25,7 @@ public class LessonAdapter extends ArrayAdapter<String> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View view1 = LayoutInflater.from(context).inflate(R.layout.lesson, null);
+        View view1 = LayoutInflater.from(context).inflate(R.layout.add_lesson, null);
         return view1;
     }
 }
