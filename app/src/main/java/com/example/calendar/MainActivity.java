@@ -130,8 +130,20 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    ArrayList<Lesson> lessonsArrayFromCursor(Cursor cursor) {
+        ArrayList<Lesson> list = new ArrayList<>();
+        cursor.moveToFirst();
+        while(cursor.moveToNext())
+            list.add(new Lesson(cursor.getString(1), cursor.getString(2), cursor.getInt(3),
+                    cursor.getInt(4), cursor.getString(5), cursor.getString(6),
+                    cursor.getInt(7), cursor.getInt(8)));
+        return list;
+    }
+
     void testDataBase() {
         LessonsDB lessonsDB = new LessonsDB(this);
+
+        lessonsDB.deleteAll();
 
         Log.d("TestDB", String.valueOf(lessonsDB.select(
                 new String[]{LessonsDB.COLUMN_UNIVERSITY},
@@ -144,17 +156,10 @@ public class MainActivity extends AppCompatActivity {
         lessonsDB.insert(new Lesson(universities.get(0), "бегемоты", 10,
                 10, "1", "2", 10, 10));
 
-        ArrayList<Lesson> list = new ArrayList<>();
         Cursor cursor = lessonsDB.select(
                 new String[]{LessonsDB.COLUMN_UNIVERSITY},
                 new String[]{universities.get(0)});
-        cursor.moveToFirst();
-        while(cursor.moveToNext())
-            list.add(new Lesson(cursor.getString(1), cursor.getString(2), cursor.getInt(3),
-                    cursor.getInt(4), cursor.getString(5), cursor.getString(6),
-                    cursor.getInt(7), cursor.getInt(8)));
-        Log.d("TestDB", list.toString());
-
+        Log.d("TestDB", lessonsArrayFromCursor(cursor).toString());
 
         Log.d("TestDB", String.valueOf(lessonsDB.select(
                 new String[]{LessonsDB.COLUMN_UNIVERSITY},
@@ -165,6 +170,10 @@ public class MainActivity extends AppCompatActivity {
         Log.d("TestDB", String.valueOf(lessonsDB.select(
                 new String[]{LessonsDB.COLUMN_UNIVERSITY, LessonsDB.COLUMN_SPECIALITY},
                 new String[]{universities.get(0), "бегемоты"}).getCount()));
+
+        Log.d("TestDB", String.valueOf(lessonsDB.select(
+                new String[]{LessonsDB.COLUMN_UNIVERSITY, LessonsDB.COLUMN_COURSE},
+                new String[]{universities.get(0), "10"}).getCount()));
 
         lessonsDB.update(new Lesson(universities.get(0), "бегемоты", 5,
                 10, "1", "2", 10, 10), 1);

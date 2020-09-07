@@ -28,10 +28,6 @@ public class Lesson {
         this.course = course;
     }
 
-    static String[] reformatDate(String date) {
-        return new String[] {"-1", "wDay", "-1"};
-    }
-
     public String getUniversity() {
         return university;
     }
@@ -80,6 +76,6 @@ public class Lesson {
                 ", semester=" + semester +
                 ", week=" + week +
                 ", weekday=" + weekday +
-                '}';
+                "}\n";
     }
 }

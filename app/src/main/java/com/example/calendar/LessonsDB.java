@@ -68,8 +68,11 @@ public class LessonsDB extends SQLiteOpenHelper {
     }
 
     public void delete(long id) {
-        db.delete(TABLE_NAME, COLUMN_ID + " = ?",
-                new String[] { String.valueOf(id) });
+        db.delete(TABLE_NAME, COLUMN_ID + " = ?", new String[] { String.valueOf(id) });
+    }
+
+    public void deleteAll() {
+        db.delete(TABLE_NAME, null, null);
     }
 
     public void update(Lesson lesson, long id) {
@@ -89,13 +92,18 @@ public class LessonsDB extends SQLiteOpenHelper {
     }
 
     public Cursor select(String[] columns, String[] values) {
-        StringBuilder selection = new StringBuilder(String.format(
-        "%s = '%s'", columns[0], values[0]));
-        for (int i=1; i<columns.length; i++)
-            selection.append(String.format(" AND %s = '%s'", columns[i], values[i]));
-        System.out.println(selection);
-        return db.query(TABLE_NAME, null, selection.toString(),
-                null, null, null, null);
+        if (columns == null || columns.length == 0)
+            return db.query(TABLE_NAME, null, null,
+                    null, null, null, null);
+        else {
+            StringBuilder selection = new StringBuilder(String.format(
+                    "%s = '%s'", columns[0], values[0]));
+            for (int i = 1; i < columns.length; i++)
+                selection.append(String.format(" AND %s = '%s'", columns[i], values[i]));
+            System.out.println(selection);
+            return db.query(TABLE_NAME, null, selection.toString(),
+                    null, null, null, null);
+        }
     }
 
 }
