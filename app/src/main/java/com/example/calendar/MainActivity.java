@@ -26,9 +26,6 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
 
-    private NormalDayDB normalDaysDB;
-    private CorrectedDayDB correctedDayDB;
-
     private final String UNIVERSITY_PREFERENCE_KEY = "UniversityList";
     private SharedPreferences preferences;
     private ArrayList<String> universities;
@@ -85,9 +82,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-        testDataBase();
-
     }
 
     public void exit(View view) {
@@ -124,13 +118,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putStringSet(UNIVERSITY_PREFERENCE_KEY, new HashSet<String>(universities));
+        editor.putStringSet(UNIVERSITY_PREFERENCE_KEY, new HashSet<>(universities));
         editor.apply();
 
         super.onDestroy();
     }
 
-    ArrayList<Lesson> lessonsArrayFromCursor(Cursor cursor) {
+    static ArrayList<Lesson> cursorToList(Cursor cursor) {
         ArrayList<Lesson> list = new ArrayList<>();
         cursor.moveToFirst();
         while(cursor.moveToNext())
@@ -143,11 +137,10 @@ public class MainActivity extends AppCompatActivity {
     void testDataBase() {
         LessonsDB lessonsDB = new LessonsDB(this);
 
-        lessonsDB.deleteAll();
-
         Log.d("TestDB", String.valueOf(lessonsDB.select(
                 new String[]{LessonsDB.COLUMN_UNIVERSITY},
-                new String[]{universities.get(0)}).getCount()));
+                new String[]{universities.get(0)},
+                LessonsDB.COLUMN_ID).getCount()));
 
         lessonsDB.insert(new Lesson(universities.get(0), "полиглоты", 10,
                 10, "1", "2", 10, 10));
@@ -158,47 +151,60 @@ public class MainActivity extends AppCompatActivity {
 
         Cursor cursor = lessonsDB.select(
                 new String[]{LessonsDB.COLUMN_UNIVERSITY},
-                new String[]{universities.get(0)});
-        Log.d("TestDB", lessonsArrayFromCursor(cursor).toString());
+                new String[]{universities.get(0)},
+                LessonsDB.COLUMN_ID);
+        Log.d("TestDB", cursorToList(cursor).toString());
 
         Log.d("TestDB", String.valueOf(lessonsDB.select(
                 new String[]{LessonsDB.COLUMN_UNIVERSITY},
-                new String[]{universities.get(0)}).getCount()));
+                new String[]{universities.get(0)},
+                LessonsDB.COLUMN_ID).getCount()));
         Log.d("TestDB", String.valueOf(lessonsDB.select(
                 new String[]{LessonsDB.COLUMN_UNIVERSITY, LessonsDB.COLUMN_SPECIALITY},
-                new String[]{universities.get(0), "полиглоты"}).getCount()));
+                new String[]{universities.get(0), "полиглоты"},
+                LessonsDB.COLUMN_ID).getCount()));
         Log.d("TestDB", String.valueOf(lessonsDB.select(
                 new String[]{LessonsDB.COLUMN_UNIVERSITY, LessonsDB.COLUMN_SPECIALITY},
-                new String[]{universities.get(0), "бегемоты"}).getCount()));
+                new String[]{universities.get(0), "бегемоты"},
+                LessonsDB.COLUMN_ID).getCount()));
 
         Log.d("TestDB", String.valueOf(lessonsDB.select(
                 new String[]{LessonsDB.COLUMN_UNIVERSITY, LessonsDB.COLUMN_COURSE},
-                new String[]{universities.get(0), "10"}).getCount()));
+                new String[]{universities.get(0), "10"},
+                LessonsDB.COLUMN_ID).getCount()));
 
         lessonsDB.update(new Lesson(universities.get(0), "бегемоты", 5,
                 10, "1", "2", 10, 10), 1);
 
         Log.d("TestDB", String.valueOf(lessonsDB.select(
                 new String[]{LessonsDB.COLUMN_UNIVERSITY},
-                new String[]{universities.get(0)}).getCount()));
+                new String[]{universities.get(0)},
+                LessonsDB.COLUMN_ID).getCount()));
         Log.d("TestDB", String.valueOf(lessonsDB.select(
                 new String[]{LessonsDB.COLUMN_UNIVERSITY, LessonsDB.COLUMN_SPECIALITY},
-                new String[]{universities.get(0), "полиглоты"}).getCount()));
+                new String[]{universities.get(0), "полиглоты"},
+                LessonsDB.COLUMN_ID).getCount()));
         Log.d("TestDB", String.valueOf(lessonsDB.select(
                 new String[]{LessonsDB.COLUMN_UNIVERSITY, LessonsDB.COLUMN_SPECIALITY},
-                new String[]{universities.get(0), "бегемоты"}).getCount()));
+                new String[]{universities.get(0), "бегемоты"},
+                LessonsDB.COLUMN_ID).getCount()));
 
         lessonsDB.delete(1);
 
         Log.d("TestDB", String.valueOf(lessonsDB.select(
                 new String[]{LessonsDB.COLUMN_UNIVERSITY},
-                new String[]{universities.get(0)}).getCount()));
+                new String[]{universities.get(0)},
+                LessonsDB.COLUMN_ID).getCount()));
         Log.d("TestDB", String.valueOf(lessonsDB.select(
                 new String[]{LessonsDB.COLUMN_UNIVERSITY, LessonsDB.COLUMN_SPECIALITY},
-                new String[]{universities.get(0), "полиглоты"}).getCount()));
+                new String[]{universities.get(0), "полиглоты"},
+                LessonsDB.COLUMN_ID).getCount()));
         Log.d("TestDB", String.valueOf(lessonsDB.select(
                 new String[]{LessonsDB.COLUMN_UNIVERSITY, LessonsDB.COLUMN_SPECIALITY},
-                new String[]{universities.get(0), "бегемоты"}).getCount()));
+                new String[]{universities.get(0), "бегемоты"},
+                LessonsDB.COLUMN_ID).getCount()));
 
+        lessonsDB.deleteAll();
+        lessonsDB.close();
     }
 }

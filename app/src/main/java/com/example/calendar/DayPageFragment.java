@@ -1,22 +1,23 @@
 package com.example.calendar;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DayPageFragment extends Fragment {
     int pageNum;
-
-    public DayPageFragment() { }
 
     public static DayPageFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -30,16 +31,15 @@ public class DayPageFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        pageNum = getArguments() != null ? getArguments().getInt("pageNum") : 0;
         super.onCreate(savedInstanceState);
-        String[] week = getResources().getStringArray(R.array.week);
-        pageNum = getArguments() != null ? getArguments().getInt("pageNum") : 1;
     }
 
     @Nullable @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View page = inflater.inflate(R.layout.day_page, container, false);
-        final DayAdapter adapter = WeekActivity.dayAdapters.get(pageNum);
+        SimpleCursorAdapter adapter = WeekActivity.cursorAdapters.get(pageNum);
 
         ListView lessonsView = page.findViewById(R.id.list_lessons);
         lessonsView.setAdapter(adapter);
@@ -48,11 +48,19 @@ public class DayPageFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapter.add(new LessonDayAdapter("", "", "", ""));
-                adapter.notifyDataSetChanged();
+                addLesson(WeekActivity.cursorAdapters.get(pageNum));
             }
         });
 
         return page;
     }
+
+    private void addLesson(SimpleCursorAdapter adapter) {
+        new AddLessonDialog(pageNum).show(getChildFragmentManager(), "custom");
+        adapter.swapCursor(WeekActivity.db.select(WeekActivity.selectColumns,
+                new String[]{WeekActivity.universityName, String.valueOf(pageNum)},
+                LessonsDB.COLUMN_START_TIME));
+        adapter.notifyDataSetChanged();
+    }
+
 }

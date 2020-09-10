@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.Arrays;
+
 import javax.xml.transform.Source;
 
 public class LessonsDB extends SQLiteOpenHelper {
@@ -43,7 +45,7 @@ public class LessonsDB extends SQLiteOpenHelper {
                 COLUMN_END_TIME + " TEXT NOT NULL, " +
                 COLUMN_WEEKDAY + " INTEGER NOT NULL, " +
                 COLUMN_WEEK + " INTEGER NOT NULL, " +
-                COLUMN_DATE + "TEXT)");
+                COLUMN_DATE + " TEXT)");
     }
 
     @Override
@@ -91,18 +93,18 @@ public class LessonsDB extends SQLiteOpenHelper {
                 new String[] { String.valueOf(id) });
     }
 
-    public Cursor select(String[] columns, String[] values) {
+    public Cursor select(String[] columns, String[] values, String sortColumn) {
         if (columns == null || columns.length == 0)
-            return db.query(TABLE_NAME, null, null,
-                    null, null, null, null);
+            return db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+//            return db.query(TABLE_NAME, null, null,
+//                    null, null, null, sortColumn);
         else {
-            StringBuilder selection = new StringBuilder(String.format(
-                    "%s = '%s'", columns[0], values[0]));
-            for (int i = 1; i < columns.length; i++)
-                selection.append(String.format(" AND %s = '%s'", columns[i], values[i]));
-            System.out.println(selection);
-            return db.query(TABLE_NAME, null, selection.toString(),
-                    null, null, null, null);
+            StringBuilder selection = new StringBuilder(String.format("%s = ?", columns[0]));
+            for (int i=1; i<columns.length; i++)
+                selection.append(String.format(" AND %s = ?", columns[i]));
+            Log.d("Check-DB-select", Arrays.toString(values));
+            return db.query(TABLE_NAME, null, selection.toString(), values,
+                    null, null, sortColumn);
         }
     }
 
