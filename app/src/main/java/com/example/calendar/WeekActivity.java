@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.CursorAdapter;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
@@ -20,7 +21,10 @@ public class WeekActivity extends AppCompatActivity {
     static String[] selectColumns = {
             LessonsDB.COLUMN_UNIVERSITY,
             LessonsDB.COLUMN_WEEKDAY};
-    static ArrayList<SimpleCursorAdapter> cursorAdapters = new ArrayList<>();
+    static LessonCursorAdapter
+            MondayAdapter, TuesdayAdapter, WednesdayAdapter,
+            ThursdayAdapter, FridayAdapter, SaturdayAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,23 +35,31 @@ public class WeekActivity extends AppCompatActivity {
         universityName = intent.getStringExtra("university");
 
         db = new LessonsDB(this);
-        Log.d("Check-DB-all", MainActivity.cursorToList(
-                db.select(null, null, null)).toString());
-
-        String[] itemValues = {LessonsDB.COLUMN_START_TIME, LessonsDB.COLUMN_END_TIME,
-                LessonsDB.COLUMN_SPECIALITY, LessonsDB.COLUMN_COURSE};
-        int[] itemViews = {R.id.item_start_time, R.id.item_end_time,
-                R.id.item_specialty, R.id.item_course};
-        for (int i=0; i<6; i++) {
-            Cursor cursor = db.select(
-                    selectColumns, new String[]{universityName, String.valueOf(i)},
-                    LessonsDB.COLUMN_START_TIME);
-            Log.d("Check-DB-day-select", MainActivity.cursorToList(cursor).toString());
-            cursorAdapters.add(new SimpleCursorAdapter(this, R.layout.lesson_view, cursor,
-                            itemValues, itemViews,0));
-        }
+        setAdapters();
 
         ViewPager pager = findViewById(R.id.weekPager);
         pager.setAdapter(new WeekPagerAdapter(getSupportFragmentManager(), this));
     }
+
+    private void setAdapters() {
+        MondayAdapter = new LessonCursorAdapter(this, db.select(
+                selectColumns, new String[]{universityName, "0"},
+                LessonsDB.COLUMN_START_TIME), 0);
+        TuesdayAdapter = new LessonCursorAdapter(this, db.select(
+                selectColumns, new String[]{universityName, "1"},
+                LessonsDB.COLUMN_START_TIME), 0);
+        WednesdayAdapter = new LessonCursorAdapter(this, db.select(
+                selectColumns, new String[]{universityName, "2"},
+                LessonsDB.COLUMN_START_TIME), 0);
+        ThursdayAdapter = new LessonCursorAdapter(this, db.select(
+                selectColumns, new String[]{universityName, "3"},
+                LessonsDB.COLUMN_START_TIME), 0);
+        FridayAdapter = new LessonCursorAdapter(this, db.select(
+                selectColumns, new String[]{universityName, "4"},
+                LessonsDB.COLUMN_START_TIME), 0);
+        SaturdayAdapter = new LessonCursorAdapter(this, db.select(
+                selectColumns, new String[]{universityName, "5"},
+                LessonsDB.COLUMN_START_TIME), 0);
+    }
+
 }

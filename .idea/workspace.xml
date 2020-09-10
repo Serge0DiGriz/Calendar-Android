@@ -4,11 +4,11 @@
     <shared>
       <config>
         <device id="pixel" />
+        <device id="Nexus 7" />
         <device id="Nexus 10" />
         <device id="pixel_3_xl" />
         <device id="tv_720p" />
         <device id="pixel_c" />
-        <device id="Nexus 7" />
         <device id="pixel_2" />
       </config>
     </shared>
@@ -19,8 +19,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="912cbd67-7d0b-4f9a-90ef-9ffee29e7a08" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/calendar/AddLessonDialog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/calendar/LessonCursorAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -32,12 +30,12 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/calendar/DayAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/calendar/DayAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/calendar/AddLessonDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/calendar/AddLessonDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/calendar/DayPageFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/calendar/DayPageFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/calendar/LessonCursorAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/calendar/LessonCursorAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/calendar/LessonsDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/calendar/LessonsDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/calendar/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/calendar/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/calendar/WeekActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/calendar/WeekActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/add_lesson.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/add_lesson.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/lesson_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/lesson_view.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,6 +43,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="92011c88892b544a" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -340,7 +339,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599463505102</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Update">
+      <created>1599749767329</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1599749767329</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -361,10 +367,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1598694210858" />
-    <state x="679" y="164" width="622" height="569" key="#com.intellij.ide.util.MemberChooser" timestamp="1599749727420">
+    <state x="679" y="164" width="622" height="569" key="#com.intellij.ide.util.MemberChooser" timestamp="1599763607682">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="679" y="164" width="622" height="569" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1599749727420" />
+    <state x="679" y="164" width="622" height="569" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1599763607682" />
     <state x="756" y="379" width="407" height="289" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1599303324701">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -377,34 +383,34 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="533" y="155" key="AndroidCreateResourceFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1599383618328" />
-    <state x="560" y="114" key="CommitChangelistDialog2" timestamp="1599463503321">
+    <state x="560" y="114" key="CommitChangelistDialog2" timestamp="1599749764840">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="560" y="114" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1599463503321" />
+    <state x="560" y="114" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1599749764840" />
     <state x="130" y="86" key="DiffContextDialog" timestamp="1599307544343">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="130" y="86" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1599307544343" />
-    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1599732956451">
+    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1599753012456">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1599732956451" />
-    <state width="1877" height="236" key="GridCell.Tab.0.bottom" timestamp="1599749217429">
+    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1599753012456" />
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom" timestamp="1599762375340">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="236" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599749217429" />
-    <state width="1877" height="236" key="GridCell.Tab.0.center" timestamp="1599749217429">
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599762375340" />
+    <state width="1877" height="281" key="GridCell.Tab.0.center" timestamp="1599762375340">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="236" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599749217429" />
-    <state width="1877" height="236" key="GridCell.Tab.0.left" timestamp="1599749217429">
+    <state width="1877" height="281" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599762375340" />
+    <state width="1877" height="281" key="GridCell.Tab.0.left" timestamp="1599762375340">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="236" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599749217429" />
-    <state width="1877" height="236" key="GridCell.Tab.0.right" timestamp="1599749217429">
+    <state width="1877" height="281" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599762375340" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right" timestamp="1599762375340">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="236" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599749217429" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599762375340" />
     <state x="742" y="241" key="RollbackChangesDialog" timestamp="1599385506650">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -413,10 +419,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="162" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1598677239451" />
-    <state x="552" y="241" key="Vcs.Push.Dialog.v2" timestamp="1599463509449">
+    <state x="552" y="241" key="Vcs.Push.Dialog.v2" timestamp="1599749771346">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="241" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1599463509449" />
+    <state x="552" y="241" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1599749771346" />
     <state x="769" y="436" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599307704809">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

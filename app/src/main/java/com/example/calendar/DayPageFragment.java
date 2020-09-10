@@ -39,7 +39,16 @@ public class DayPageFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View page = inflater.inflate(R.layout.day_page, container, false);
-        SimpleCursorAdapter adapter = WeekActivity.cursorAdapters.get(pageNum);
+
+        LessonCursorAdapter adapter;
+        switch (pageNum) {
+            case 0: adapter = WeekActivity.MondayAdapter; break;
+            case 1: adapter = WeekActivity.TuesdayAdapter; break;
+            case 2: adapter = WeekActivity.WednesdayAdapter; break;
+            case 3: adapter = WeekActivity.ThursdayAdapter; break;
+            case 4: adapter = WeekActivity.FridayAdapter; break;
+            default: adapter = WeekActivity.SaturdayAdapter; break;
+        }
 
         ListView lessonsView = page.findViewById(R.id.list_lessons);
         lessonsView.setAdapter(adapter);
@@ -48,19 +57,27 @@ public class DayPageFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addLesson(WeekActivity.cursorAdapters.get(pageNum));
+                AddLessonDialog dialog = new AddLessonDialog(pageNum);
+                dialog.show(getChildFragmentManager(), "custom");
             }
         });
 
         return page;
     }
 
-    private void addLesson(SimpleCursorAdapter adapter) {
-        new AddLessonDialog(pageNum).show(getChildFragmentManager(), "custom");
-        adapter.swapCursor(WeekActivity.db.select(WeekActivity.selectColumns,
-                new String[]{WeekActivity.universityName, String.valueOf(pageNum)},
-                LessonsDB.COLUMN_START_TIME));
-        adapter.notifyDataSetChanged();
+    @Override
+    public void onResume() {
+        LessonCursorAdapter adapter;
+        switch (pageNum) {
+            case 0: adapter = WeekActivity.MondayAdapter; break;
+            case 1: adapter = WeekActivity.TuesdayAdapter; break;
+            case 2: adapter = WeekActivity.WednesdayAdapter; break;
+            case 3: adapter = WeekActivity.ThursdayAdapter; break;
+            case 4: adapter = WeekActivity.FridayAdapter; break;
+            default: adapter = WeekActivity.SaturdayAdapter; break;
+        }
+        if (adapter.getCount() == 0)
+            new AddLessonDialog(pageNum).show(getChildFragmentManager(), "custom");
+        super.onResume();
     }
-
 }
